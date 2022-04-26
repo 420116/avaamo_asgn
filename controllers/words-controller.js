@@ -51,18 +51,19 @@ const formatResponse = (aResponse) => {
   let validRes = aResponse.filter((item) => item.value.data.def.length > 0);
   let output = validRes.reduce((html, item) => {
     let syno = "";
-    if (item.value.data.def[0].tr.length > 0) {
-      syno = item.value.data.def[0].tr.reduce((a, b) => {
+    let wordList = item.value.data.def[0];
+    if (wordList.tr.length > 0) {
+      syno = wordList.tr.reduce((a, b) => {
         return b.text + ", " + a;
       }, "");
     }
     return (
-      html +
-      `<div><h1>${item.value.data.def[0].text}</h1><div style="display:flex;align-items:center;"><h4>Synonyms- </h4>${syno}</div></div>`
+      `<div><h1>${wordList.text}</h1><div style="display:flex;align-items:center;"><h4>Synonyms- </h4>${syno}</div><div style="display:flex;align-items:center;"><h4>Part of Speech - </h4>${wordList.pos}</div></div>` +
+      html
     );
   }, "");
 
-  return `<div style="background: #d092da;padding: 2rem;;border-radius: 20px;">${output}</div>`;
+  return `<body style="background: black;padding: 4rem;"><div style="background: #d092da;padding: 2rem;;border-radius: 20px;">${output}</div></body>`;
 };
 
 const getTexts = async () => {
