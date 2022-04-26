@@ -1,5 +1,4 @@
 const axios = require("axios");
-const fs = require("fs");
 let URL =
   "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20210216T114936Z.e4989dccd61b9626.373cddfbfb8a3b2ff30a03392b4e0b076f14cff9&lang=en-en&text=";
 
@@ -34,22 +33,16 @@ const formatWords = (str) => {
 };
 
 const callDictionary = async (key) => {
-  let data = await axios(
-    "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20210216T114936Z.e4989dccd61b9626.373cddfbfb8a3b2ff30a03392b4e0b076f14cff9&lang=en-en&text=" +
-      key
-  );
+  let data = await axios(URL + key);
   return data;
 };
 
 const getWords = (req, res, next) => {
   getTexts()
     .then(function (response) {
-      console.log(response);
       res.send(formatResponse(response));
     })
     .catch(function (error) {
-      // handle error
-      console.log(error);
       res.json("error");
     });
 };
@@ -65,7 +58,7 @@ const formatResponse = (aResponse) => {
     }
     return (
       html +
-      `<div><h1>${item.value.data.def[0].text}</h1><div><h2>Synonyms-</h2>${syno}</div></div>`
+      `<div><h1>${item.value.data.def[0].text}</h1><div style="display:flex;align-items:center;"><h4>Synonyms- </h4>${syno}</div></div>`
     );
   }, "");
 
