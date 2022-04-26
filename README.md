@@ -1,5 +1,4 @@
-# avaamo_asgn
-Assignment From Ashish
+# Avaamo Assignment - From Ashish
 
 Steps to run -<br>
 1- import code using git clone<br>
